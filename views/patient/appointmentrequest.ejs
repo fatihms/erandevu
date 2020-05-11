@@ -1,0 +1,105 @@
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="container">
+    <a class="navbar-brand font-weight-bold" href="/patients/appointment/1"><span class="fa fa-hospital-o" ></span> E-Randevu</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent-4"
+      aria-controls="navbarSupportedContent-4"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+      
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/patients/appointment/1">
+            Randevu Oluştur
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/appointment-past/1">Randevu Geçmişi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/appointment-request/1">Randevu Tapleplerim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/test-result/1">Sonuçlarım</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink-4"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i> Profil
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right dropdown-info"
+            aria-labelledby="navbarDropdownMenuLink-4"
+          >
+            <a class="dropdown-item" href="/patients/patient">Hesap Bilgilerim</a>
+            <a class="dropdown-item" href="/users/logout">Çıkış</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--/.Navbar -->
+<div class="container">
+  <div class="row mt-5">
+      <div class="col m-auto">
+        <div class="card card-body border-light shadow">
+          <h1 class="text-center mb-3"><i class="fas fa-user-md"></i>  Randevu Taleplerim</h1>
+          <div class="card mt-2">
+              <div class="card-header">
+                Beklenen Randevular
+              </div>
+              <div class="card-body">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Klinik</th>
+                      <th scope="col">Doktor</th>
+                      <th scope="col">Tarih</th>
+                      <th scope="col">Reçete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% appo.forEach((item)=> { %>
+                      <% if( (item.date.getMonth() > d.getMonth() && item.date.getFullYear() >= d.getFullYear()) || (item.date.getMonth()==d.getMonth() && item.date.getDate()>=d.getDate()&& item.date.getFullYear() >= d.getFullYear()) || (item.date.getMonth()==d.getMonth() && item.date.getDate()==d.getDate()&& item.date.getFullYear() >= d.getFullYear() && item.date.getHours() >= d.getHours() ) ){ %>
+                      <tr>
+                        <td scope="row"> <%=item.polyclinicName%>  </td>
+                        <td><%=item.doctorName%></td>
+                        <td><%=item.date.getFullYear()%> - <%=(item.date.getMonth()+1)%> - <%=item.date.getDate()%> Saat: <%=(item.date.getHours()-3)%>:<%=item.date.getMinutes()%></td>
+                        <% if(!item.appointmentResult) {%>
+                          <td>Reçete Bilgisi Girilmemiştir</td>
+                        <% } %>
+                        <% if(item.appointmentResult) {%>
+                            <td><%=item.appointmentResult%></td>
+                        <% } %>
+                      </tr>
+                      <% } %>
+                    <% }) %>                     
+                  </tbody>
+                </table>
+              </div>
+        
+
+      </div>
+    </div>
+   </div>
